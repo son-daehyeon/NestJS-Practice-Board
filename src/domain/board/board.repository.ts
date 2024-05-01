@@ -13,11 +13,15 @@ export class BoardRepository {
     return await this.boardModel.create(board);
   }
 
-  async findByTitle(title: string): Promise<Board> {
-    return await this.boardModel.findOne({ title }).exec();
+  async findAll(): Promise<Board[]> {
+    return await this.boardModel.find().exec();
   }
 
-  async existsByTitle(title: string): Promise<boolean> {
-    return !!(await this.boardModel.exists({ title }).exec());
+  async findByBoardId(boardId: string): Promise<Board> {
+    return await this.boardModel.findById(boardId).exec();
+  }
+
+  async existsByBoardId(boardId: string): Promise<boolean> {
+    return !!(await this.boardModel.exists({ _id: boardId }).exec());
   }
 }
