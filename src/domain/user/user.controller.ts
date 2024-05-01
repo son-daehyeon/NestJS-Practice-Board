@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
+
+import { UserService } from './user.service';
+
 import { RegisterRequestDto } from './dto/request/RegisterRequestDto';
 import { LoginRequestDto } from './dto/request/LoginRequestDto';
 import { LoginResponseDto } from './dto/response/LoginResponseDto';
-import { UserService } from './user.service';
-import { UserGuard } from './user.guard';
 
 @Controller('/api/user')
 export class UserController {
@@ -23,11 +24,5 @@ export class UserController {
     const token = await this.userService.login(username, password);
 
     return { token };
-  }
-
-  @Get()
-  @UseGuards(UserGuard)
-  async test(): Promise<string> {
-    return 'Hello World!';
   }
 }

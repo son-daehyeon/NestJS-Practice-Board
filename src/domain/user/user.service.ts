@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+
+import { UserRepository } from './user.repository';
+
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { UserRepository } from './user.repository';
+
 import { ExceptionFactory, Exceptions } from '../../util/ExceptionFactory';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UserService {
