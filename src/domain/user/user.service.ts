@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { InjectConnection } from '@nestjs/mongoose';
 
 import { UserRepository } from './user.repository';
-import { User } from './user.schema';
 
+import { Connection } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
@@ -14,6 +15,7 @@ export class UserService {
   constructor(
     private userRepository: UserRepository,
     private configService: ConfigService,
+    @InjectConnection() private connection: Connection,
   ) {}
 
   async register(username: string, email: string, password: string): Promise<void> {
@@ -35,18 +37,18 @@ export class UserService {
       throw ExceptionFactory.of(Exceptions.USER_NOT_FOUND);
     }
 
-    const user = await this.userRepository.findByUsername(username);
+    const rawUser = await this.connection.collection('users').find({ username }).next();
 
-    if (!(await bcrypt.compare(password, user.password))) {
+    if (!(await bcrypt.compare(password, rawUser.password))) {
       throw ExceptionFactory.of(Exceptions.PASSWORD_INCORRECT);
     }
 
-    return this.generateToken(user);
+    return this.generateToken(rawUser._id.toString());
   }
 
-  private generateToken(user: User): string {
+  private generateToken(userId: string): string {
     const secret = this.configService.get<string>('JWT_SECRET');
 
-    return jwt.sign({ userId: user['_id'] }, secret, { expiresIn: '30d' });
+    return jwt.sign({ userId }, secret, { expiresIn: '30d' });
   }
 }
