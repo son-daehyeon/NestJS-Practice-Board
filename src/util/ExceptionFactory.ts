@@ -7,6 +7,8 @@ export class ExceptionFactory {
 }
 
 export enum Exceptions {
+  UNAUTHORIZED = '권한이 없습니다.',
+
   EMAIL_ALREADY_EXISTS = '이미 존재하는 이메일입니다.',
   USERNAME_ALREADY_EXISTS = '이미 존재하는 아이디입니다.',
 

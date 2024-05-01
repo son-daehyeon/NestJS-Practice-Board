@@ -24,4 +24,12 @@ export class BoardRepository {
   async existsByBoardId(boardId: string): Promise<boolean> {
     return !!(await this.boardModel.exists({ _id: boardId }).exec());
   }
+
+  async updateByBoardId(boardId: string, board: Board): Promise<void> {
+    await this.boardModel.updateOne({ _id: boardId }, board).exec();
+  }
+
+  async deleteByBoardId(boardId: string): Promise<void> {
+    await this.boardModel.deleteOne({ _id: boardId }).exec();
+  }
 }

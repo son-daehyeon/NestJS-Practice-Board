@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UseGuards } from '@nestjs/common';
 
 import { CreateBoardRequestDto } from './dto/request/CreateBoardRequestDto';
 
@@ -32,5 +32,23 @@ export class BoardController {
     const { title, content } = requestDto;
 
     return await this.boardService.createBoard(title, content, user);
+  }
+
+  @Patch('/:boardId')
+  @UseGuards(UserGuard)
+  async updateBoard(
+    @ReqUser() user: User,
+    @Body() requestDto: CreateBoardRequestDto,
+    @Param('boardId') boardId: string,
+  ): Promise<void> {
+    const { title, content } = requestDto;
+
+    await this.boardService.updateBoard(boardId, title, content, user);
+  }
+
+  @Delete('/:boardId')
+  @UseGuards(UserGuard)
+  async deleteBoard(@ReqUser() user: User, @Param('boardId') boardId: string): Promise<void> {
+    await this.boardService.deleteBoard(boardId, user);
   }
 }
