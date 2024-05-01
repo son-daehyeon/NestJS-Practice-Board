@@ -17,14 +17,6 @@ export class UserRepository {
     return await this.userModel.findById(id).exec();
   }
 
-  async findByEmail(email: string): Promise<User> {
-    return await this.userModel.findOne({ email }).exec();
-  }
-
-  async findByUsername(username: string): Promise<User> {
-    return await this.userModel.findOne({ username }).exec();
-  }
-
   async existsByEmail(email: string): Promise<boolean> {
     return !!(await this.userModel.exists({ email }).exec());
   }
