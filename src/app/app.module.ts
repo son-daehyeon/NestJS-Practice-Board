@@ -1,7 +1,10 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+
 import { UserModule } from '../domain/user/user.module';
+import { BoardModule } from '../domain/board/board.module';
+
 import { UserMiddleware } from '../domain/user/user.middleware';
 
 @Module({
@@ -21,6 +24,7 @@ import { UserMiddleware } from '../domain/user/user.middleware';
     }),
 
     UserModule,
+    BoardModule,
   ],
 })
 export class AppModule {
