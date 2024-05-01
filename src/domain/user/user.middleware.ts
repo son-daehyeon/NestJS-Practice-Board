@@ -1,8 +1,7 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { NextFunction } from 'express';
 
 import { UserRepository } from './user.repository';
-import { User } from './user.schema';
 
 import * as jwt from 'jsonwebtoken';
 
@@ -23,8 +22,8 @@ export class UserMiddleware implements NestMiddleware {
   }
 }
 
-interface RequestWithUserId {
-  user: User;
-}
+export const ReqUser = createParamDecorator((data: any, ctx: ExecutionContext) => {
+  const request = ctx.switchToHttp().getRequest();
 
-export interface RequestPassedUserMiddleware extends Request, RequestWithUserId {}
+  return request.user;
+});
