@@ -11,10 +11,7 @@ import { AppModule } from './app/app.module';
     .setTitle('Nest Study - Board')
     .setDescription('Implementing a board API using NestJS.')
     .setVersion('1.0.0')
-    .addSecurity('JWT Token', {
-      type: 'http',
-      scheme: 'bearer',
-    })
+    .addBearerAuth()
     .build();
   SwaggerModule.setup('/swagger-docs', app, SwaggerModule.createDocument(app, config), {
     swaggerOptions: { defaultModelsExpandDepth: -1 },
