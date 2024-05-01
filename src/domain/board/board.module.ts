@@ -7,7 +7,19 @@ import { BoardRepository } from './board.repository';
 import { Board, BoardSchema } from './board.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Board.name, schema: BoardSchema }])],
+  imports: [
+    MongooseModule.forFeatureAsync([
+      {
+        name: Board.name,
+        useFactory: () => {
+          const schema = BoardSchema;
+          // eslint-disable-next-line @typescript-eslint/no-var-requires
+          schema.plugin(require('mongoose-autopopulate'));
+          return schema;
+        },
+      },
+    ]),
+  ],
   controllers: [BoardController],
   providers: [BoardService, BoardRepository],
   exports: [BoardRepository],

@@ -14,7 +14,12 @@ export class Board {
   @Prop({ required: true })
   content: string;
 
-  @Prop({ required: true, type: mongoose.Schema.Types.ObjectId, ref: User.name })
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User.name,
+    autopopulate: true,
+  })
   author: User;
 
   @Prop({ default: new Date() })
