@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { UserService } from './user.service';
 
