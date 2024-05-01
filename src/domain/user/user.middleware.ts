@@ -12,9 +12,9 @@ export class UserMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: NextFunction) {
     const authorization = req.headers['authorization'];
     if (authorization) {
-      const username = jwt.decode(authorization.slice(7))['username'];
+      const userid = jwt.decode(authorization.slice(7))['userid'];
 
-      req['user'] = await this.userRepository.findByUsername(username);
+      req['user'] = await this.userRepository.findById(userid);
     }
 
     next();

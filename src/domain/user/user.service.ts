@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 import { UserRepository } from './user.repository';
+import { User } from './user.schema';
 
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -40,12 +41,12 @@ export class UserService {
       throw ExceptionFactory.of(Exceptions.PASSWORD_INCORRECT);
     }
 
-    return this.generateToken(username);
+    return this.generateToken(user);
   }
 
-  private generateToken(username: string): string {
+  private generateToken(user: User): string {
     const secret = this.configService.get<string>('JWT_SECRET');
 
-    return jwt.sign({ username }, secret, { expiresIn: '30d' });
+    return jwt.sign({ userId: user['_id'] }, secret, { expiresIn: '30d' });
   }
 }
