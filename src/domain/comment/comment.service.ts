@@ -17,7 +17,7 @@ export class CommentService {
   ) {}
 
   async getComments(boardId: string): Promise<Comment[]> {
-    if (await this.boardRepository.existsByBoardId(boardId)) {
+    if (!(await this.boardRepository.existsByBoardId(boardId))) {
       throw ExceptionFactory.of(Exceptions.BOARD_NOT_FOUND);
     }
 
@@ -27,7 +27,7 @@ export class CommentService {
   }
 
   async createComment(content: string, author: User, boardId: string): Promise<Comment> {
-    if (await this.boardRepository.existsByBoardId(boardId)) {
+    if (!(await this.boardRepository.existsByBoardId(boardId))) {
       throw ExceptionFactory.of(Exceptions.BOARD_NOT_FOUND);
     }
 
