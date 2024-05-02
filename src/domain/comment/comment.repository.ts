@@ -15,7 +15,7 @@ export class CommentRepository {
   }
 
   async findAllInBoard(board: Board): Promise<Comment[]> {
-    return await this.commentModel.find({ _id: board['_id'] }).exec();
+    return await this.commentModel.find({ board }).exec();
   }
 
   async updateByCommentId(commentId: string, comment: Partial<Comment>): Promise<void> {
