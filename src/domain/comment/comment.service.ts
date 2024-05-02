@@ -36,17 +36,29 @@ export class CommentService {
     return await this.commentRepository.save({ content, author, board });
   }
 
-  async updateComment(commentId: string, content: string): Promise<void> {
+  async updateComment(commentId: string, content: string, user: User): Promise<void> {
     if (!(await this.commentRepository.existsByCommentId(commentId))) {
       throw ExceptionFactory.of(Exceptions.COMMENT_NOT_FOUND);
+    }
+
+    const comment = await this.commentRepository.findByCommentId(commentId);
+
+    if (comment.author['id'] !== user['id']) {
+      throw ExceptionFactory.of(Exceptions.UNAUTHORIZED);
     }
 
     await this.commentRepository.updateByCommentId(commentId, { content });
   }
 
-  async deleteComment(commentId: string): Promise<void> {
+  async deleteComment(commentId: string, user: User): Promise<void> {
     if (!(await this.commentRepository.existsByCommentId(commentId))) {
       throw ExceptionFactory.of(Exceptions.COMMENT_NOT_FOUND);
+    }
+
+    const comment = await this.commentRepository.findByCommentId(commentId);
+
+    if (comment.author['id'] !== user['id']) {
+      throw ExceptionFactory.of(Exceptions.UNAUTHORIZED);
     }
 
     await this.commentRepository.deleteByCommentId(commentId);

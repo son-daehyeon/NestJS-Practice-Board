@@ -34,17 +34,18 @@ export class CommentController {
   @ApiOperation({ summary: '댓글 업데이트' })
   @Patch('/:commentId')
   async updateComment(
-    @Param('commendId') commendId: string,
+    @ReqUser() user: User,
+    @Param('commentId') commentId: string,
     @Body() requestDto: CreateCommentRequestDto,
   ) {
     const { content } = requestDto;
 
-    return await this.commentService.updateComment(commendId, content);
+    return await this.commentService.updateComment(commentId, content, user);
   }
 
   @ApiOperation({ summary: '댓글 삭제' })
   @Delete('/:commentId')
-  async deleteComment(@Param('commendId') commendId: string) {
-    return await this.commentService.deleteComment(commendId);
+  async deleteComment(@ReqUser() user: User, @Param('commentId') commentId: string) {
+    return await this.commentService.deleteComment(commentId, user);
   }
 }

@@ -14,6 +14,10 @@ export class CommentRepository {
     return await this.commentModel.create(board);
   }
 
+  async findByCommentId(commentId: string): Promise<Comment> {
+    return await this.commentModel.findOne({ _id: commentId }).exec();
+  }
+
   async findAllInBoard(board: Board): Promise<Comment[]> {
     return await this.commentModel.find({ board }).exec();
   }
