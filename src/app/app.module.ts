@@ -4,6 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { UserModule } from '../domain/user/user.module';
 import { BoardModule } from '../domain/board/board.module';
+import { CommentModule } from '../domain/comment/comment.module';
 
 import { UserMiddleware } from '../domain/user/user.middleware';
 
@@ -25,6 +26,7 @@ import { UserMiddleware } from '../domain/user/user.middleware';
 
     UserModule,
     BoardModule,
+    CommentModule,
   ],
 })
 export class AppModule {
