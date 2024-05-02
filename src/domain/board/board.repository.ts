@@ -25,7 +25,7 @@ export class BoardRepository {
     return !!(await this.boardModel.exists({ _id: boardId }).exec());
   }
 
-  async updateByBoardId(boardId: string, board: Board): Promise<void> {
+  async updateByBoardId(boardId: string, board: Partial<Board>): Promise<void> {
     await this.boardModel.updateOne({ _id: boardId }, board).exec();
   }
 

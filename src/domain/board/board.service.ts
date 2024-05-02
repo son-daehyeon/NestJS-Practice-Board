@@ -41,10 +41,7 @@ export class BoardService {
       throw ExceptionFactory.of(Exceptions.UNAUTHORIZED);
     }
 
-    board.title = title;
-    board.content = content;
-
-    await this.boardRepository.updateByBoardId(boardId, board);
+    await this.boardRepository.updateByBoardId(boardId, { title, content });
   }
 
   async deleteBoard(boardId: string, author: User): Promise<void> {
