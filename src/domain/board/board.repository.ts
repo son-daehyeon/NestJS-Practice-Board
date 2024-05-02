@@ -9,7 +9,7 @@ import { Model } from 'mongoose';
 export class BoardRepository {
   constructor(@InjectModel(Board.name) private boardModel: Model<Board>) {}
 
-  async save(board: Board): Promise<Board> {
+  async save(board: Partial<Board>): Promise<Board> {
     return await this.boardModel.create(board);
   }
 

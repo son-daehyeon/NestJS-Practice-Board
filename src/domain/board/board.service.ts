@@ -27,7 +27,7 @@ export class BoardService {
   }
 
   async createBoard(title: string, content: string, author: User): Promise<Board> {
-    return await this.boardRepository.save({ title, content, author, createdAt: new Date() });
+    return await this.boardRepository.save({ title, content, author });
   }
 
   async updateBoard(boardId: string, title: string, content: string, author: User): Promise<void> {

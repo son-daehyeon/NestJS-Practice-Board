@@ -22,7 +22,7 @@ export class Board {
   })
   author: User;
 
-  @Prop({ default: new Date() })
+  @Prop({ required: false, default: new Date() })
   createdAt: Date;
 }
 

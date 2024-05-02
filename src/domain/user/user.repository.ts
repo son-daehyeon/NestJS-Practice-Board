@@ -9,7 +9,7 @@ import { Model, ObjectId } from 'mongoose';
 export class UserRepository {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async save(user: User): Promise<User> {
+  async save(user: Partial<User>): Promise<User> {
     return await this.userModel.create(user);
   }
 
