@@ -37,10 +37,18 @@ export class CommentService {
   }
 
   async updateComment(commentId: string, content: string): Promise<void> {
+    if (!(await this.commentRepository.existsByCommentId(commentId))) {
+      throw ExceptionFactory.of(Exceptions.COMMENT_NOT_FOUND);
+    }
+
     await this.commentRepository.updateByCommentId(commentId, { content });
   }
 
   async deleteComment(commentId: string): Promise<void> {
+    if (!(await this.commentRepository.existsByCommentId(commentId))) {
+      throw ExceptionFactory.of(Exceptions.COMMENT_NOT_FOUND);
+    }
+
     await this.commentRepository.deleteByCommentId(commentId);
   }
 }

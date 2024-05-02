@@ -18,6 +18,10 @@ export class CommentRepository {
     return await this.commentModel.find({ board }).exec();
   }
 
+  async existsByCommentId(commentId: string): Promise<boolean> {
+    return !!(await this.commentModel.exists({ _id: commentId }).exec());
+  }
+
   async updateByCommentId(commentId: string, comment: Partial<Comment>): Promise<void> {
     await this.commentModel.updateOne({ _id: commentId }, comment).exec();
   }

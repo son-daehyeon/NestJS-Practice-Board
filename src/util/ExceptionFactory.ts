@@ -16,4 +16,6 @@ export enum Exceptions {
   PASSWORD_INCORRECT = '비밀번호가 일치하지 않습니다.',
 
   BOARD_NOT_FOUND = '존재하지 않는 게시글입니다.',
+
+  COMMENT_NOT_FOUND = '존재하지 않는 댓글입니다.',
 }
